@@ -21,4 +21,9 @@
     - mongoose is used for migration .If you want to use migration then, mongoose
     - mongoose is db tool used for migrations,schema(model) relationship manage.
     - But mongodb is direct database,but programatically or codewise or folder structure wise     difference I have not seen.
-    - 
+
+    - With mongodb : MongoClient.connect() for database connection.
+    - And with mongoose : mongoose.connect() for DB connection.
+
+
+    
