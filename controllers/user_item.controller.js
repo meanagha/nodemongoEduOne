@@ -70,12 +70,12 @@ exports.delete = async(req, res) => {
     const parentDel = await  db.User.findByIdAndDelete(id);
     const childDel = await db.Item.deleteMany({_id: parentDel.items});
     res.send({
-        message: "User was deleted successfully!"
+        message: "User deleted successfully!"
     });
 
   } catch(err) {    
     res.send({
-            error:"Parent not found"
+            error:"User not found"
     });
   }
 
