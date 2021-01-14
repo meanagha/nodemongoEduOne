@@ -1,4 +1,5 @@
 const db = require("../models/");
+const Tutorial = db.tutorials;
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -63,27 +64,20 @@ exports.findOne = (req, res) => {
 
 
 // Delete a User with the specified id in the request
-exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  db.User.findByIdAndRemove({ _id: req.params.id })
-  .then(data => {
-    if (!data) {
-      res.status(404).send({
-        message: `Cannot delete User with id=${id}. Maybe User was not found!`
-      });
-    } else {
-      res.send({
+exports.delete = async(req, res) => {
+ const id = req.params.id;
+  try {   
+    const parentDel = await  db.User.findByIdAndDelete(id);
+    const childDel = await db.Item.deleteMany({_id: parentDel.items});
+    res.send({
         message: "User was deleted successfully!"
-      });
-    }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Could not delete User with id=" + id
     });
-  });
 
+  } catch(err) {    
+    res.send({
+            error:"Parent not found"
+    });
+  }
 
 };
 
