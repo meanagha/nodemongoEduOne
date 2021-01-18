@@ -95,8 +95,9 @@ exports.signin = (req, res) => {
           expiresIn: 86400 // 24 hours
         });
   
-        var authorities = [];
-  
+        var authorities = [];   
+        console.log("log=="+user)
+        
         for (let i = 0; i < user.roles.length; i++) {
           authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
         }
