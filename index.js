@@ -76,13 +76,14 @@ const adminCredentials = () => {
          
                 /** To store "admin" role id staticaly from Roles table */
                 Role.findOne({ name: "admin" }, (err, role) => {
+                  console.log(role)
                     console.log("Admin role's id =="+role._id)
 
                     if (err) {                      
                         return;
                     }
                     else{
-                        User.estimatedDocumentCount({role:role._id},(err,count) => {
+                        User.estimatedDocumentCount({roles:role._id},(err,count) => {
                             console.log("Total admin=="+count)
                             if(count == 0){
                                 console.log("Admin is not exists in user table So insert")
@@ -97,7 +98,7 @@ const adminCredentials = () => {
                                   });
                                  
                               
-                                user.role = [role._id];
+                                user.roles = [role._id];
                                 user.save(err => {
                                 if (err) {       
                                     console.log(err)               

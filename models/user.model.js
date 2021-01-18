@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 const UserSchema = mongoose.Schema;
 
 let user = new UserSchema({
-    role: [
+    roles: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Role"
+          ref: "roles"
         }
       ],
     email: String,

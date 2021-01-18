@@ -25,7 +25,8 @@ exports.signin = (req, res) => {
           return res.status(404).send({ message: "User Not found." });
         }
   
-
+        console.log("POSTMAN pass=="+ req.body.password)
+        console.log("checing with ideal password=="+user.password)
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           user.password
@@ -44,17 +45,17 @@ exports.signin = (req, res) => {
   
         var authorities = [];   
         console.log("log=")
-        console.log(user.role)//600173bf1225486535cfddea
+        console.log(user.roles.length)//600173bf1225486535cfddea
 
   
-        for (let i = 0; i < user.role.length; i++) {
-          authorities.push("ROLE_" + user.role[i].name.toUpperCase());//cant read "toUpperCase"
+        for (let i = 0; i < user.roles.length; i++) {
+          authorities.push("ROLE_" + user.roles[i].name.toUpperCase());//cant read "toUpperCase"
         }
         res.status(200).send({
           id: user._id,
           name: user.name,
           email: user.email,
-          role: user.authorities,
+          role: authorities,
           accessToken: token
         });
       });
